@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Profesor } from './entities/profesore.entity';
-import { CreateProfesoreDto } from './dto/create-profesore.dto';
-import { UpdateProfesoreDto } from './dto/update-profesore.dto';
+import { CreateProfesorDto } from './dto/create-profesor.dto';
+import { UpdateProfesorDto } from './dto/update-profesor.dto';
 
 @Injectable()
 export class ProfesoresService {
@@ -13,16 +13,16 @@ export class ProfesoresService {
   ) {}
 
   // 1. Crear Profesor
-  async create(createDto: CreateProfesoreDto): Promise<Profesor> {
+  async create(createDto: CreateProfesorDto): Promise<Profesor> {
     const nuevoProfesor = this.profesorRepository.create(createDto);
     return this.profesorRepository.save(nuevoProfesor);
   }
 
-  // 2. Obtener todos los Profesores
+  // 2. Obtener todos los Profesores (activos)
   findAll(): Promise<Profesor[]> {
     return this.profesorRepository.find({
       where: { activo: true },
-      relations: ['cursos'], // Asumiendo que Profesor tiene una relación 'cursos'
+      relations: ['cursos'], // carga los cursos de cada profesor 
     });
   }
 
@@ -40,7 +40,7 @@ export class ProfesoresService {
   }
 
   // 4. Actualizar Profesor
-  async update(legajoProfesor: number, updateDto: UpdateProfesoreDto): Promise<Profesor> {
+  async update(legajoProfesor: number, updateDto: UpdateProfesorDto): Promise<Profesor> {
     // Reutilizamos findOne para verificar existencia y obtener la entidad
     const profesor = await this.findOne(legajoProfesor); 
 

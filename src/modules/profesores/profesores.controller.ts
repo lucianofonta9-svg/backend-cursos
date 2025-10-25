@@ -11,8 +11,8 @@ import {
   HttpStatus 
 } from '@nestjs/common';
 import { ProfesoresService } from './profesores.service';
-import { CreateProfesoreDto } from './dto/create-profesore.dto';
-import { UpdateProfesoreDto } from './dto/update-profesore.dto';
+import { CreateProfesorDto } from './dto/create-profesor.dto';
+import { UpdateProfesorDto } from './dto/update-profesor.dto';
 import { Profesor } from './entities/profesore.entity'; // Tipificación
 
 @Controller('profesores')
@@ -21,7 +21,7 @@ export class ProfesoresController {
 
   // POST /profesores (Crear)
   @Post()
-  create(@Body() createProfesorDto: CreateProfesoreDto): Promise<Profesor> { 
+  create(@Body() createProfesorDto: CreateProfesorDto): Promise<Profesor> { 
     return this.profesoresService.create(createProfesorDto);
   }
 
@@ -41,7 +41,7 @@ export class ProfesoresController {
   @Patch(':legajo')
   update(
     @Param('legajo', ParseIntPipe) legajo: number, 
-    @Body() updateProfesorDto: UpdateProfesoreDto
+    @Body() updateProfesorDto: UpdateProfesorDto
   ): Promise<Profesor> {
     return this.profesoresService.update(legajo, updateProfesorDto);
   }

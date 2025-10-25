@@ -1,8 +1,8 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateProfesoreDto } from './create-profesore.dto';
+import { CreateProfesorDto } from './create-profesor.dto';
 import { IsBoolean, IsOptional } from 'class-validator'; // Necesario para validar 'activo'
 
-export class UpdateProfesorDto extends PartialType(CreateProfesoreDto) {
+export class UpdateProfesorDto extends PartialType(CreateProfesorDto) {
   // Añadimos 'activo' para permitir que se reactive un profesor dado de baja
   @IsOptional()
   @IsBoolean()
